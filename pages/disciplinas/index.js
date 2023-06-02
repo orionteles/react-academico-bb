@@ -14,15 +14,17 @@ const index = () => {
         getAll()
     }, [])
 
-    function getAll(){
-        axios.get('/api/disciplinas').then( resultado => {
+    function getAll() {
+        axios.get('/api/disciplinas').then(resultado => {
             setDisciplinas(resultado.data);
         })
     }
-    
-    function excluir(id){
-        axios.delete('/api/disciplinas/' + id)
-        getAll()
+
+    function excluir(id) {
+        if (confirm('Deseja realmente excluir o registro?')) {
+            axios.delete('/api/disciplinas/' + id)
+            getAll()
+        }
     }
 
     return (
@@ -41,7 +43,7 @@ const index = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {disciplinas.map( item => (
+                    {disciplinas.map(item => (
                         <tr key={item.id}>
                             <td>
                                 <Link href={'/disciplinas/' + item.id}>
